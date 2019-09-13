@@ -7,10 +7,14 @@
   "scripts": {
     "start": "node test",
     "api": "yarn workspace api start",
-    "deploy": "now switch snotel && now"
+    "deploy": "now switch snotel && now",
+    "publish": "lerna publish"
   },
   "workspaces": [
     "api",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "lerna": "^3.16.4"
+  }
 }

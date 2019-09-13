@@ -8,6 +8,7 @@
   "dependencies": {
     "apollo-server-micro": "^2.9.3",
     "graphql": "^14.5.4",
-    "micro": "^9.3.4"
+    "micro": "^9.3.4",
+    "snotel": "0.0.0"
   }
 }
