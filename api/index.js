@@ -23,7 +23,7 @@ const typeDefs = gql`
 
   type Query {
     allSnotelStations: [SnotelStation]
-    allSnotelReadings: [SnotelReading]
+    allSnotelReadings(name: String!, numReadings: Int): [SnotelReading]
   }
 `
 
@@ -33,14 +33,18 @@ const resolvers = {
       return nrcs.stations
     },
     allSnotelReadings: async (root, args, context) => {
-      console.log(root)
-      console.log(args)
-      console.log(context)
+      const station = nrcs.stations.find(station => station.name === args.name)
+
+      if (!station) {
+        return []
+      }
+
+      console.log(station)
 
       const readings = await nrcs.fetch({
-        triplet: '992:UT:SNTL',
+        triplet: station.triplet,
         granularity: 'daily',
-        readings: '365'
+        readings: args.numReadings || '365'
       })
 
       return readings
