@@ -1,5 +1,8 @@
+const { promisify } = require('util')
 const fetch = require('isomorphic-fetch')
-const parseCsv = require('csv-parse/lib/sync')
+const parseCsvCallback = require('csv-parse')
+
+const parseCsv = promisify(parseCsvCallback)
 
 const buildUrl = ({ triplet, readings, granularity }) => {
   return [
@@ -18,7 +21,7 @@ module.exports = async ({ triplet, readings, granularity }) => {
   const result = await fetch(url)
   const text = await result.text()
 
-  const csvData = parseCsv(text, {
+  const csvData = await parseCsv(text, {
     comment: '#',
     skip_lines_with_error: true
   })
