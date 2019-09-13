@@ -15,11 +15,8 @@ const buildUrl = ({ triplet, readings, granularity }) => {
 
 module.exports = async ({ triplet, readings, granularity }) => {
   const url = buildUrl({ triplet, readings, granularity })
-  console.log(url)
   const result = await fetch(url)
   const text = await result.text()
-
-  console.log(text)
 
   const csvData = parseCsv(text, {
     comment: '#',
@@ -27,7 +24,6 @@ module.exports = async ({ triplet, readings, granularity }) => {
   })
 
   csvData.shift()
-  console.log(csvData)
   return csvData.map(reading => {
     const [date, swe, sweChange, snowDepth, snowDepthChange] = reading
 
@@ -39,4 +35,5 @@ module.exports = async ({ triplet, readings, granularity }) => {
       snowWaterEquivalentChange: parseFloat(sweChange)
     }
   })
+  .reverse()
 }
