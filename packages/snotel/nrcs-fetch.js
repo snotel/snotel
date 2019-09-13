@@ -7,11 +7,11 @@ const parseCsv = promisify(parseCsvCallback)
 const buildUrl = ({ triplet, readings, granularity }) => {
   return [
     'http://www.wcc.nrcs.usda.gov/reportGenerator/view_csv/customSingleStationReport/',
-    granularity,
+    granularity.toLowerCase(),
     '/',
     triplet,
     '%7Cid%3D%22%22%7Cname/-',
-    readings.toLowerCase(),
+    readings,
     '%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta'
   ].join('')
 }
