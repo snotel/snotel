@@ -11,7 +11,7 @@ const buildUrl = ({ triplet, readings, granularity }) => {
     '/',
     triplet,
     '%7Cid%3D%22%22%7Cname/-',
-    readings,
+    readings.toLowerCase(),
     '%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta'
   ].join('')
 }
@@ -32,10 +32,10 @@ module.exports = async ({ triplet, readings, granularity }) => {
 
     return {
       date,
-      snowDepth: parseInt(snowDepth),
-      snowDepthChange: parseInt(snowDepthChange),
-      snowWaterEquivalent: parseFloat(swe),
-      snowWaterEquivalentChange: parseFloat(sweChange)
+      snowDepth: parseInt(snowDepth) || 0,
+      snowDepthChange: parseInt(snowDepthChange) || 0,
+      snowWaterEquivalent: parseFloat(swe) || 0.0,
+      snowWaterEquivalentChange: parseFloat(sweChange) || 0.0
     }
   })
   .reverse()

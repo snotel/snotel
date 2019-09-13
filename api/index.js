@@ -21,9 +21,14 @@ const typeDefs = gql`
     snowWaterEquivalentChange: Float
   }
 
+  enum ReadingFrequency {
+    DAILY
+    HOURLY
+  }
+
   type Query {
     allSnotelStations: [SnotelStation]
-    allSnotelReadings(name: String!, numReadings: Int): [SnotelReading]
+    allSnotelReadings(name: String!, numReadings: Int, frequency: ReadingFrequency): [SnotelReading]
   }
 `
 
@@ -39,11 +44,9 @@ const resolvers = {
         return []
       }
 
-      console.log(station)
-
       const readings = await nrcs.fetch({
         triplet: station.triplet,
-        granularity: 'daily',
+        granularity: args.frequency || 'daily',
         readings: args.numReadings || '365'
       })
 
