@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "micro"
   },
@@ -9,6 +9,6 @@
     "apollo-server-micro": "^2.9.3",
     "graphql": "^14.5.4",
     "micro": "^9.3.4",
-    "snotel": "^0.0.2"
+    "snotel": "^0.0.3"
   }
 }
