@@ -27,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    allSnotelStations: [SnotelStation]
+    allSnotelStations(state: String): [SnotelStation]
     allSnotelReadings(name: String!, numReadings: Int, frequency: ReadingFrequency): [SnotelReading]
   }
 `
@@ -35,6 +35,10 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     allSnotelStations: (root, args, context) => {
+      if (args.state) {
+        return nrcs.stations.filter(station => station.state === args.state)
+      }
+
       return nrcs.stations
     },
     allSnotelReadings: async (root, args, context) => {
