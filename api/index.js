@@ -33,6 +33,10 @@ const resolvers = {
       return nrcs.stations
     },
     allSnotelReadings: async (root, args, context) => {
+      console.log(root)
+      console.log(args)
+      console.log(context)
+
       const readings = await nrcs.fetch({
         triplet: '992:UT:SNTL',
         granularity: 'daily',
