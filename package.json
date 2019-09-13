@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "snotel",
+  "license": "MIT",
+  "repository": "snotel/snotel",
+  "author": "John Otander <johnotander@gmail.com>",
+  "scripts": {
+    "start": "node test",
+    "api": "yarn workspace api start",
+    "deploy": "now switch snotel && now"
+  },
+  "workspaces": [
+    "api",
+    "packages/*"
+  ]
+}

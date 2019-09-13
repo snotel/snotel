@@ -1,0 +1,10 @@
+{
+  "name": "snotel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^4.4.5",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
