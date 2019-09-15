@@ -11,6 +11,7 @@ const typeDefs = gql`
     latitude: Float
     longitude: Float
     elevation: Int
+    readings(frequency: ReadingFrequency, count: Int): [SnotelReading]
   }
 
   type SnotelReading {
@@ -28,7 +29,7 @@ const typeDefs = gql`
 
   type Query {
     allSnotelStations(state: String): [SnotelStation]
-    allSnotelReadings(name: String!, numReadings: Int, frequency: ReadingFrequency): [SnotelReading]
+    snotelStation(name: String!): SnotelStation
   }
 `
 
@@ -41,17 +42,18 @@ const resolvers = {
 
       return nrcs.stations
     },
-    allSnotelReadings: async (root, args, context) => {
+    snotelStation: (root, args, context) => {
       const station = nrcs.stations.find(station => station.name === args.name)
 
-      if (!station) {
-        return []
-      }
-
+      return station
+    }
+  },
+  SnotelStation: {
+    readings: async (root, args, context) => {
       const readings = await nrcs.fetch({
-        triplet: station.triplet,
+        triplet: root.triplet,
         granularity: args.frequency || 'daily',
-        readings: args.numReadings || '365'
+        readings: args.count || '365'
       })
 
       return readings

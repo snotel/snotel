@@ -6,7 +6,7 @@
   "author": "John Otander <johnotander@gmail.com>",
   "scripts": {
     "start": "node test",
-    "api": "yarn workspace api start",
+    "api": "yarn workspace api dev",
     "deploy": "now switch snotel && now",
     "publish": "lerna publish"
   },
